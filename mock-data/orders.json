@@ -1,0 +1,143 @@
+{
+  "store": "Trailhead Outfitters",
+  "order_prefix": "TO-",
+  "as_of_date": "2026-06-17",
+  "_note": "Mock orders for the support chatbot. Engineered so every status and edge case is demoable from real sample data. Returns window = 30 days from delivery. Emails are fake.",
+  "orders": [
+    {
+      "order_number": "TO-10001",
+      "email": "alex.morgan@example.com",
+      "customer_name": "Alex Morgan",
+      "order_date": "2026-06-16",
+      "status": "Processing",
+      "items": [
+        { "name": "Ridgeline 2P Tent", "sku": "TO-CMP-TN08", "qty": 1, "size": null, "color": "Orange/Grey", "price": 249, "final_sale": false }
+      ],
+      "carrier": null,
+      "tracking_number": null,
+      "estimated_delivery": "2026-06-24",
+      "delivered_date": null,
+      "shipping_city_state": "Boulder, CO",
+      "final_sale": false,
+      "tracking_note": "We're packing your order now. You'll get tracking by email once it ships (usually within 1 business day).",
+      "refund_status": null,
+      "_demo_label": "Processing — not yet shipped; can still be cancelled; cannot return yet."
+    },
+    {
+      "order_number": "TO-10002",
+      "email": "jamie.lee@example.com",
+      "customer_name": "Jamie Lee",
+      "order_date": "2026-06-12",
+      "status": "Shipped",
+      "items": [
+        { "name": "Summit Rain Jacket", "sku": "TO-APP-RJ01", "qty": 1, "size": "M", "color": "Forest Green", "price": 129, "final_sale": false },
+        { "name": "Summit Wool Hiking Socks (2-pack)", "sku": "TO-APP-SK06", "qty": 1, "size": "M", "color": "Grey", "price": 24, "final_sale": false }
+      ],
+      "carrier": "UPS",
+      "tracking_number": "1Z999AA10123456784",
+      "estimated_delivery": "2026-06-19",
+      "delivered_date": null,
+      "shipping_city_state": "Denver, CO",
+      "final_sale": false,
+      "tracking_note": "Shipped in 2 parcels. Parcel 1 (jacket) is on time for Jun 19; parcel 2 (socks) is delayed in transit — new estimate Jun 22.",
+      "refund_status": null,
+      "_demo_label": "Shipped + split shipment with one delayed parcel."
+    },
+    {
+      "order_number": "TO-10003",
+      "email": "priya.patel@example.com",
+      "customer_name": "Priya Patel",
+      "order_date": "2026-06-10",
+      "status": "Out for delivery",
+      "items": [
+        { "name": "Vantage 55L Backpack", "sku": "TO-CMP-BP12", "qty": 1, "size": null, "color": "Charcoal", "price": 199, "final_sale": false }
+      ],
+      "carrier": "FedEx",
+      "tracking_number": "771234567890",
+      "estimated_delivery": "2026-06-17",
+      "delivered_date": null,
+      "shipping_city_state": "Salt Lake City, UT",
+      "final_sale": false,
+      "tracking_note": "Out for delivery — expected by 8 PM today.",
+      "refund_status": null,
+      "_demo_label": "Out for delivery (arriving today)."
+    },
+    {
+      "order_number": "TO-10004",
+      "email": "chris.nguyen@example.com",
+      "customer_name": "Chris Nguyen",
+      "order_date": "2026-06-02",
+      "status": "Delivered",
+      "items": [
+        { "name": "Aurora Down Jacket", "sku": "TO-APP-DJ02", "qty": 1, "size": "L", "color": "Black", "price": 189, "final_sale": false },
+        { "name": "Cedar Fleece Pullover", "sku": "TO-APP-FL03", "qty": 1, "size": "L", "color": "Navy", "price": 69, "final_sale": false }
+      ],
+      "carrier": "USPS",
+      "tracking_number": "9400100000000000000000",
+      "estimated_delivery": "2026-06-06",
+      "delivered_date": "2026-06-06",
+      "shipping_city_state": "Portland, OR",
+      "final_sale": false,
+      "tracking_note": "Delivered — left at front door.",
+      "refund_status": null,
+      "_demo_label": "Delivered 11 days ago (within 30-day window). Multi-item → partial return + size exchange demos."
+    },
+    {
+      "order_number": "TO-10005",
+      "email": "morgan.reed@example.com",
+      "customer_name": "Morgan Reed",
+      "order_date": "2026-04-20",
+      "status": "Delivered",
+      "items": [
+        { "name": "Glacier 0°F Sleeping Bag", "sku": "TO-CMP-SB11", "qty": 1, "size": null, "color": "Burnt Orange", "price": 239, "final_sale": false }
+      ],
+      "carrier": "UPS",
+      "tracking_number": "1Z999AA10987654321",
+      "estimated_delivery": "2026-04-25",
+      "delivered_date": "2026-04-25",
+      "shipping_city_state": "Flagstaff, AZ",
+      "final_sale": false,
+      "tracking_note": "Delivered.",
+      "refund_status": null,
+      "_demo_label": "Delivered 53 days ago (OUTSIDE 30-day window). Standard return ineligible; defect → warranty/handoff path."
+    },
+    {
+      "order_number": "TO-10006",
+      "email": "sam.taylor@example.com",
+      "customer_name": "Sam Taylor",
+      "order_date": "2026-06-08",
+      "status": "Cancelled",
+      "items": [
+        { "name": "Basecamp 4P Family Tent", "sku": "TO-CMP-TN09", "qty": 1, "size": null, "color": "Spruce", "price": 329, "final_sale": false }
+      ],
+      "carrier": null,
+      "tracking_number": null,
+      "estimated_delivery": null,
+      "delivered_date": null,
+      "shipping_city_state": "Seattle, WA",
+      "final_sale": false,
+      "tracking_note": "Order cancelled on Jun 9 at customer request.",
+      "refund_status": "Refunded $329.00 to original payment on 2026-06-09 (allow 3–5 business days to appear).",
+      "_demo_label": "Cancelled + refunded."
+    },
+    {
+      "order_number": "TO-10007",
+      "email": "dana.kim@example.com",
+      "customer_name": "Dana Kim",
+      "order_date": "2026-05-30",
+      "status": "Delivered",
+      "items": [
+        { "name": "Ridge Sun Hoodie", "sku": "TO-APP-SH07", "qty": 1, "size": "M", "color": "Sand", "price": 49, "final_sale": true }
+      ],
+      "carrier": "USPS",
+      "tracking_number": "9400100000000000000001",
+      "estimated_delivery": "2026-06-03",
+      "delivered_date": "2026-06-03",
+      "shipping_city_state": "Austin, TX",
+      "final_sale": true,
+      "tracking_note": "Delivered.",
+      "refund_status": null,
+      "_demo_label": "Delivered 14 days ago (within window) BUT item is FINAL SALE → return ineligible."
+    }
+  ]
+}
