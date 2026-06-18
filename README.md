@@ -39,10 +39,11 @@ Plus a **Knowledge Base FAQ** (shipping, sizing, warranty, payment) answered by 
 4. Test against [`docs/05-edge-cases-and-qa.md`](docs/05-edge-cases-and-qa.md).
 5. **Export** the `.vf` and **record** the demo with [`docs/04-demo-script.md`](docs/04-demo-script.md).
 
-## Demo video — record it today (no Voiceflow build needed)
-An animated, auto-playing demo of the assistant lives in [`demo/index.html`](demo/index.html) —
-open it in any browser and screen-record it for an instant 2–3 min demo video, complete with
-on-screen captions. AI voiceover clips are in [`demo/voiceover/`](demo/voiceover/), and
+## Demo video
+**A finished ~2-minute demo video with synced AI voiceover is already rendered:
+[`demo/Trailhead-Outfitters-demo.mp4`](demo/Trailhead-Outfitters-demo.mp4)** (1280×720, ~4 MB) —
+ready to submit as-is. To re-record or customize, the animated source is
+[`demo/index.html`](demo/index.html) (open in any browser; press **H** to hide controls). AI voiceover clips are in [`demo/voiceover/`](demo/voiceover/), and
 [`demo/AI-VIDEO-GUIDE.md`](demo/AI-VIDEO-GUIDE.md) walks through recording, syncing the
 voiceover, and optionally adding an AI presenter intro/outro.
 
@@ -60,7 +61,8 @@ voiceover, and optionally adding an AI presenter intro/outro.
 | [`mock-data/products.json`](mock-data/products.json) | 16-product catalog (apparel + gear) |
 | [`mock-data/orders.json`](mock-data/orders.json) | 7 sample orders covering every status/edge case |
 | [`mock-data/orders-lookup.js`](mock-data/orders-lookup.js) | Voiceflow JS step: lookup, eligibility, business hours (+ self-test) |
-| [`demo/index.html`](demo/index.html) | Animated, auto-playing demo of the bot — open & screen-record |
+| [`demo/Trailhead-Outfitters-demo.mp4`](demo/Trailhead-Outfitters-demo.mp4) | **Finished ~2-min demo video** (AI voiceover + captions) — ready to submit |
+| [`demo/index.html`](demo/index.html) | Animated, auto-playing demo source — open & screen-record |
 | [`demo/voiceover/`](demo/voiceover/) | AI voiceover clips (per scene) + full narration track |
 | [`demo/voiceover-script.md`](demo/voiceover-script.md) | Timed narration script + sync cues |
 | [`demo/AI-VIDEO-GUIDE.md`](demo/AI-VIDEO-GUIDE.md) | How to record, add voiceover, add an AI presenter, and export |
