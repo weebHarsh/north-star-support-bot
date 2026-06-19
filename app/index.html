@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>North Star Support Bot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --pine:#16352a; --forest:#27503c; --moss:#356a4f;
+    --sand:#efe7d7; --paper:#fbf7ef; --cloud:#fffdf8;
+    --ember:#d6612a; --ember-soft:#e8855a; --star:#f3c14a;
+    --ink:#23241f; --muted:#6f7268; --line:#e3d9c6;
+    --bot-bg:#ffffff; --user-bg:#27503c; --user-ink:#f3ecdd;
+    --shadow:0 18px 50px -18px rgba(22,53,42,.45);
+    --shadow-sm:0 6px 16px -10px rgba(22,53,42,.4);
+    --font-ui:'Hanken Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --font-display:'Fraunces',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--font-ui); color:var(--ink);
+    background:
+      radial-gradient(1100px 650px at 80% -10%, #2b5742 0%, transparent 60%),
+      radial-gradient(800px 560px at 8% 112%, #102a20 0%, transparent 55%),
+      var(--pine);
+    display:grid; place-items:center; min-height:100vh; padding:20px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .topo{position:fixed;inset:0;opacity:.1;pointer-events:none;mix-blend-mode:screen}
+
+  .phone{
+    width:430px; max-width:94vw; height:min(86vh,800px);
+    background:var(--paper); border-radius:28px; overflow:hidden;
+    display:flex; flex-direction:column; position:relative; z-index:2;
+    box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.5);
+  }
+  .head{
+    display:flex; align-items:center; gap:12px; padding:15px 17px;
+    background:linear-gradient(180deg,var(--cloud),#f4eee1); border-bottom:1px solid var(--line);
+  }
+  .avatar{
+    width:44px;height:44px;border-radius:50%;flex:none; display:grid;place-items:center;
+    background:radial-gradient(circle at 32% 28%, #3d6b51, #18382a); color:var(--star);
+    font-size:22px; box-shadow:var(--shadow-sm);
+  }
+  .who b{display:block;font-size:15.5px;font-weight:700;color:var(--ink);letter-spacing:.1px}
+  .who .brand{font-family:var(--font-display);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ember);font-weight:600;margin-bottom:2px}
+  .who small{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--moss)}
+  .who small::before{content:"";width:7px;height:7px;border-radius:50%;background:#3fae6a}
+
+  .chat{flex:1;overflow-y:auto;padding:20px 16px 6px;display:flex;flex-direction:column;gap:11px;
+    background:radial-gradient(460px 280px at 100% 0%, rgba(214,97,42,.04), transparent 70%), var(--paper);}
+  .chat::-webkit-scrollbar{width:6px}
+  .chat::-webkit-scrollbar-thumb{background:#dccfb6;border-radius:6px}
+
+  .row{display:flex;gap:9px;align-items:flex-end;max-width:88%;animation:rise .34s cubic-bezier(.2,.8,.2,1) both}
+  .row.bot{align-self:flex-start}
+  .row.user{align-self:flex-end;flex-direction:row-reverse}
+  @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+  .av{width:27px;height:27px;border-radius:50%;flex:none;margin-bottom:2px;display:grid;place-items:center;font-size:13px}
+  .bot .av{background:radial-gradient(circle at 32% 28%, #3d6b51, #18382a);color:var(--star)}
+  .user .av{background:linear-gradient(150deg,var(--ember),#b8491c);color:#fff;font-family:var(--font-display);font-weight:700;font-size:12px}
+  .bubble{padding:10px 14px;border-radius:17px;font-size:14.5px;line-height:1.5;box-shadow:var(--shadow-sm);white-space:pre-wrap;word-break:break-word}
+  .bot .bubble{background:var(--bot-bg);color:var(--ink);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .user .bubble{background:var(--user-bg);color:var(--user-ink);border-bottom-right-radius:5px}
+  .bubble a{color:var(--ember);font-weight:600}
+
+  .typing .bubble{display:flex;gap:5px;padding:13px 15px}
+  .typing i{width:8px;height:8px;border-radius:50%;background:#bcbfb1;animation:blink 1.3s infinite}
+  .typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+  @keyframes blink{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px;align-self:flex-start;max-width:92%;margin:1px 0 3px 36px;animation:rise .3s both}
+  .chip{font:inherit;font-size:13px;font-weight:600;color:var(--forest);background:var(--cloud);
+    border:1.5px solid var(--line);border-radius:100px;padding:8px 13px;cursor:pointer;transition:.18s;box-shadow:var(--shadow-sm)}
+  .chip:hover{background:var(--forest);color:var(--sand);border-color:var(--forest);transform:translateY(-1px)}
+
+  .composer{display:flex;align-items:center;gap:9px;padding:11px 13px;border-top:1px solid var(--line);background:var(--cloud)}
+  #field{flex:1;min-height:42px;border-radius:100px;border:1.5px solid var(--line);background:var(--paper);
+    padding:11px 16px;font:inherit;font-size:14px;color:var(--ink);outline:none;transition:.18s}
+  #field:focus{border-color:var(--moss);box-shadow:0 0 0 3px rgba(53,106,79,.12)}
+  #send{width:42px;height:42px;border-radius:50%;flex:none;border:none;cursor:pointer;background:var(--forest);
+    display:grid;place-items:center;color:var(--sand);transition:.18s}
+  #send:hover{background:var(--ember);transform:scale(1.06)}
+  #send svg{width:18px;height:18px}
+</style>
+</head>
+<body>
+  <svg class="topo" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#a9d8bd" stroke-width="1.1" fill="none">
+      <path d="M-50 300 C 250 230,430 410,720 350 S 1210 230,1500 330"/>
+      <path d="M-50 400 C 260 330,440 510,720 450 S 1220 330,1500 430"/>
+      <path d="M-50 520 C 270 450,460 620,720 560 S 1230 440,1500 540"/>
+      <path d="M-50 650 C 290 580,490 740,720 690 S 1245 560,1500 660"/>
+      <ellipse cx="1050" cy="430" rx="115" ry="70"/><ellipse cx="1050" cy="430" rx="72" ry="42"/>
+    </g>
+  </svg>
+
+  <main class="phone">
+    <div class="head">
+      <div class="avatar">★</div>
+      <div class="who">
+        <span class="brand">North Star Outfitters</span>
+        <b>North Star Support Bot</b>
+        <small>online · replies instantly</small>
+      </div>
+    </div>
+    <div class="chat" id="chat"></div>
+    <form class="composer" id="composer" autocomplete="off">
+      <input id="field" placeholder="Message the North Star bot…" aria-label="Message" />
+      <button id="send" type="submit" aria-label="Send">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9 22 2Z"/></svg>
+      </button>
+    </form>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="bot.js"></script>
+  <script>
+    (function () {
+      var chat = document.getElementById('chat');
+      var field = document.getElementById('field');
+      var form = document.getElementById('composer');
+      var state = null;
+
+      var linkify = function (t) {
+        return t.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      };
+      function scroll() { chat.scrollTop = chat.scrollHeight; }
+
+      function addBubble(role, html) {
+        var row = document.createElement('div');
+        row.className = 'row ' + role;
+        row.innerHTML = '<div class="av">' + (role === 'bot' ? '★' : 'You'.charAt(0)) + '</div>' +
+                        '<div class="bubble">' + html + '</div>';
+        chat.appendChild(row); scroll();
+      }
+      function clearChips() { var c = chat.querySelectorAll('.chips'); for (var i = 0; i < c.length; i++) c[i].remove(); }
+      function addChips(buttons) {
+        if (!buttons || !buttons.length) return;
+        var wrap = document.createElement('div'); wrap.className = 'chips';
+        buttons.forEach(function (b) {
+          var el = document.createElement('button');
+          el.className = 'chip'; el.type = 'button'; el.textContent = b.label;
+          el.onclick = function () { send(b.send); };
+          wrap.appendChild(el);
+        });
+        chat.appendChild(wrap); scroll();
+      }
+      function typing() {
+        var row = document.createElement('div');
+        row.className = 'row bot typing'; row.id = '__typing';
+        row.innerHTML = '<div class="av">★</div><div class="bubble"><i></i><i></i><i></i></div>';
+        chat.appendChild(row); scroll(); return row;
+      }
+
+      function render(result, delay) {
+        var t = typing();
+        setTimeout(function () {
+          t.remove();
+          result.messages.forEach(function (m, i) {
+            setTimeout(function () { addBubble('bot', linkify(m)); if (i === result.messages.length - 1) addChips(result.buttons); }, i * 480);
+          });
+          state = result.state;
+        }, delay || 600);
+      }
+
+      function send(text) {
+        text = (text || '').trim(); if (!text) return;
+        clearChips();
+        addBubble('user', text.replace(/</g, '&lt;'));
+        field.value = '';
+        render(NSBot.handle(state, text));
+      }
+
+      form.addEventListener('submit', function (e) { e.preventDefault(); send(field.value); });
+
+      // first turn — the greeting (no user bubble)
+      (function () {
+        var g = NSBot.greeting(); state = g.state;
+        var t = typing();
+        setTimeout(function () { t.remove(); addBubble('bot', linkify(g.messages[0])); addChips(g.buttons); }, 500);
+      })();
+      field.focus();
+    })();
+  </script>
+</body>
+</html>

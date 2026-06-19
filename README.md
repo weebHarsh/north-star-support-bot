@@ -1,98 +1,45 @@
-# Trailhead Outfitters — Customer Support Chatbot (Voiceflow)
+# North Star Support Bot
 
-A complete, ready-to-assemble customer-support chatbot for **Trailhead Outfitters**, a small
-e-commerce store selling outdoor apparel and camping gear. Built as a **Voiceflow** conversation
-design with all supporting content and mock data included.
+A **functional** customer-support chatbot for **North Star Outfitters**, a small e-commerce store
+selling outdoor apparel and camping gear. Built for the Upwork simulated project — delivered as a
+**code repository with instructions** (deliverable 7.a).
 
-This package is everything needed to produce the two project deliverables:
-1. **A working chatbot** — assemble it in Voiceflow from this spec and export the `.vf` file.
-2. **A 2–3 minute demo video** — follow the ready-made script.
+## ▶️ Run it (no install, no deployment)
+**Open [`app/index.html`](app/index.html) in any web browser.** That's the whole thing — plain
+HTML/CSS/JS with the data inlined, so it works straight from the file (no server, no build).
+Optional local server: `npx serve app` then open the printed URL.
 
-> **Why a spec package and not a `.vf`?** Voiceflow is a visual GUI tool with no reliable way to
-> hand-author an importable project file. So this repo gives you directly-uploadable content
-> (Knowledge Base docs, mock data, the JavaScript lookup) **plus** a click-by-click build guide,
-> exact message copy, diagrams, and a QA matrix — so assembling it in Voiceflow is fast and the
-> result is consistent and tested.
+## What it does — all 4 core use cases + fallback
+- **Order tracking** — asks for an order number and returns the status
+  (`111` → Shipped/arriving tomorrow · `222` → Processing/ships in 24h · `333` → Delivered ·
+  any other → invalid).
+- **Returns & exchanges** — explains the 30-day policy and provides the returns link.
+- **Product recommendations** — asks 1–2 questions, then recommends a product category.
+- **Human handoff** — on explicit request or repeated confusion, transitions to a **"Live Agent"** state.
+- **Fallback** — clear "I didn't understand" + options/escalation; handles intent variations
+  ("Where is my order?" vs "Track my package").
 
-## Cost: $0
-Everything fits Voiceflow's **free "Sandbox" plan** (canvas, intents/entities, JavaScript step,
-Knowledge Base, and the prototype runner for recording). Mock data is self-contained (no API, no
-hosting). See cost details in the plan; building is free, and you only spend free monthly credits
-when you *run* the prototype — batch your testing.
+## Provided data only
+All facts live in [`app/data.js`](app/data.js): orders 111/222/333, shipping (Standard 3–5 /
+Expedited 1–2 days), the 30-day return policy + link, and the recommendation category map.
 
-## The four core use cases
-- 📦 **Order tracking** — by order number, with status-specific replies, split-shipment/delay
-  handling, and input normalization.
-- ↩️ **Returns & exchanges** — automatic 30-day eligibility, item picker, exchange flow,
-  confirm-before-RMA.
-- 🧭 **Product recommendations** — guided by category → use-case → budget, from the real catalog.
-- 🙋 **Human handoff** — context-aware escalation with in-hours vs. ticket logic.
-Plus a **Knowledge Base FAQ** (shipping, sizing, warranty, payment) answered by a grounded LLM.
+## Project structure
+```
+app/        index.html · bot.js · data.js · bot.test.js   ← the functional chatbot
+docs/       conversation-design.md · flows/conversation-flow.md   ← supporting design
+knowledge-base/   shipping.md · returns-and-exchanges.md   ← provided reference
+demo/       North-Star-demo.mp4   ← 2–3 min demo video
+SUBMISSION.md     ← organized submission: Scenario 1–5, screenshots, coverage checklist
+```
 
-## Quick start
-1. Read [`docs/01-business-context.md`](docs/01-business-context.md) (brand, persona, policies).
-2. Open [`docs/03-voiceflow-build-guide.md`](docs/03-voiceflow-build-guide.md) and build the
-   agent step-by-step (~2–4 hrs). It uses the copy in
-   [`docs/02-conversation-design.md`](docs/02-conversation-design.md).
-3. Upload `knowledge-base/*.md` to the Voiceflow Knowledge Base; paste `mock-data/orders-lookup.js`
-   into the JavaScript step.
-4. Test against [`docs/05-edge-cases-and-qa.md`](docs/05-edge-cases-and-qa.md).
-5. **Export** the `.vf` and **record** the demo with [`docs/04-demo-script.md`](docs/04-demo-script.md).
+## Test it
+```bash
+node app/bot.test.js
+```
+Runs 29 checks across every use case, intent variation, and edge case (invalid orders,
+repeated-fallback escalation, mid-flow topic switching, etc.).
 
 ## Demo video
-**A finished ~2-minute demo video with synced AI voiceover is already rendered:
-[`demo/Trailhead-Outfitters-demo.mp4`](demo/Trailhead-Outfitters-demo.mp4)** (1280×720, ~4 MB) —
-ready to submit as-is. To re-record or customize, the animated source is
-[`demo/index.html`](demo/index.html) (open in any browser; press **H** to hide controls). AI voiceover clips are in [`demo/voiceover/`](demo/voiceover/), and
-[`demo/AI-VIDEO-GUIDE.md`](demo/AI-VIDEO-GUIDE.md) walks through recording, syncing the
-voiceover, and optionally adding an AI presenter intro/outro.
-
-## Repository structure
-| Path | What it is |
-|---|---|
-| [`docs/01-business-context.md`](docs/01-business-context.md) | Brand, policies, persona "Sage", tone & voice |
-| [`docs/02-conversation-design.md`](docs/02-conversation-design.md) | Intents, entities, variables, every flow step + exact copy + guardrails |
-| [`docs/03-voiceflow-build-guide.md`](docs/03-voiceflow-build-guide.md) | Click-by-click Voiceflow build & export |
-| [`docs/04-demo-script.md`](docs/04-demo-script.md) | 2–3 min video script with exact inputs |
-| [`docs/05-edge-cases-and-qa.md`](docs/05-edge-cases-and-qa.md) | Edge-case reference, QA matrix, fallback copy, metrics |
-| [`docs/06-sample-transcripts.md`](docs/06-sample-transcripts.md) | Full sample dialogues per flow (incl. edge paths) |
-| [`docs/flows/`](docs/flows/) | Mermaid flow diagrams (one per flow) |
-| [`knowledge-base/`](knowledge-base/) | 5 FAQ/policy docs — upload to the Voiceflow Knowledge Base |
-| [`mock-data/products.json`](mock-data/products.json) | 16-product catalog (apparel + gear) |
-| [`mock-data/orders.json`](mock-data/orders.json) | 7 sample orders covering every status/edge case |
-| [`mock-data/orders-lookup.js`](mock-data/orders-lookup.js) | Voiceflow JS step: lookup, eligibility, business hours (+ self-test) |
-| [`demo/Trailhead-Outfitters-demo.mp4`](demo/Trailhead-Outfitters-demo.mp4) | **Finished ~2-min demo video** (AI voiceover + captions) — ready to submit |
-| [`demo/index.html`](demo/index.html) | Animated, auto-playing demo source — open & screen-record |
-| [`demo/voiceover/`](demo/voiceover/) | AI voiceover clips (per scene) + full narration track |
-| [`demo/voiceover-script.md`](demo/voiceover-script.md) | Timed narration script + sync cues |
-| [`demo/AI-VIDEO-GUIDE.md`](demo/AI-VIDEO-GUIDE.md) | How to record, add voiceover, add an AI presenter, and export |
-
-## What makes this a strong submission
-- **Real conversation design**, not just a happy path: retry caps, no-match ladder, timeout
-  re-engagement, variable hygiene, and conversation repair.
-- **No dead-ends** — every ineligible / not-found / out-of-stock branch offers a next step.
-- **Trust & safety** — light PII verification, a grounded KB prompt that won't invent
-  policies/prices, off-topic & prompt-injection refusal, and abuse → handoff.
-- **Verified data layer** — the lookup/eligibility logic ships with a passing test suite.
-- **Polished extras** — proactive next-best-action, personalization, confirm-before-action,
-  context-passing handoff, CSAT capture, and an analytics plan.
-
-## Verify the data layer (optional, ~5 seconds)
-```bash
-cd mock-data
-node orders-lookup.js     # runs the self-test; prints a per-order summary
-```
-You should see **"✅ ALL CHECKS PASSED"** and a one-line status for each of the 7 orders.
-
-## Sample data for testing/demo
-| Order | Use it to show |
-|---|---|
-| `TO-10002` | Shipped + split-shipment delay |
-| `TO-10004` | Returnable (within 30 days), multi-item → exchange |
-| `TO-10007` | Final-sale item → return refused gracefully |
-| `TO-10005` | Outside 30-day window → warranty path |
-| `TO-99999` | Unknown order → no fabricated data |
-
-## Out of scope
-Live deployment/hosting; a hand-authored `.vf` import; real carrier/payment APIs (the
-self-contained mock is built to swap for a real `fetch()` later); multi-language support.
+[`demo/North-Star-demo.mp4`](demo/North-Star-demo.mp4) — a ~2–3 minute walkthrough of all four
+core use cases plus a fallback scenario. See [`SUBMISSION.md`](SUBMISSION.md) for the labeled
+scenario breakdown and a full requirements-coverage checklist.
